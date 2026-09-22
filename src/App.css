@@ -481,6 +481,120 @@ body {
   text-align: center;
 }
 
+/* Photo entry */
+.photo-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.photo-drop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 140px;
+  padding: 20px;
+  border: 2px dashed var(--border, #2a3340);
+  border-radius: 12px;
+  background: var(--card-2);
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.photo-drop:hover {
+  border-color: var(--primary);
+  color: var(--text, #fff);
+}
+.photo-drop-icon {
+  font-size: 2rem;
+}
+.photo-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.photo-preview {
+  width: 100%;
+  max-height: 45vh;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #000;
+}
+.photo-confirm {
+  display: flex;
+  flex-direction: column;
+}
+.photo-hint {
+  margin: 6px 0 4px;
+}
+
+/* Describe a meal (AI) */
+.describe-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.describe-input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #2a3340);
+  background: var(--card-2);
+  color: inherit;
+  font: inherit;
+  resize: vertical;
+  box-sizing: border-box;
+}
+.ai-items {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ai-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card-2);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.ai-item-main {
+  flex: 1;
+  min-width: 0;
+}
+.ai-grams {
+  width: 68px;
+  margin: 0;
+}
+.ai-unit {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* API key setup */
+.key-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.key-steps {
+  margin: 4px 0 8px;
+  padding-left: 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+.key-steps a {
+  color: var(--primary);
+}
+
 /* Misc */
 .muted {
   color: var(--muted);

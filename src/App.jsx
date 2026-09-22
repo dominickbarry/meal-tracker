@@ -50,6 +50,26 @@ export default function App() {
     setAddingMeal(null);
   }
 
+  // Add several parsed items to the current meal at once (used by the
+  // AI "describe a meal" flow).
+  function addManyEntries(list) {
+    const mealKey = addingMeal.key;
+    const entries = list.map((item) => ({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      food: item.food,
+      grams: item.grams,
+      nutrition: item.nutrition,
+    }));
+    setLog((prev) => {
+      const current = prev[day] || emptyDay();
+      return {
+        ...prev,
+        [day]: { ...current, [mealKey]: [...current[mealKey], ...entries] },
+      };
+    });
+    setAddingMeal(null);
+  }
+
   function removeEntry(mealKey, entryId) {
     setLog((prev) => {
       const current = prev[day] || emptyDay();
@@ -126,6 +146,7 @@ export default function App() {
           mealLabel={addingMeal.label}
           usualFoods={usualFoods}
           onAdd={addEntry}
+          onAddMany={addManyEntries}
           onClose={() => setAddingMeal(null)}
         />
       )}

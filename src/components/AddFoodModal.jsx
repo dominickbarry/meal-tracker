@@ -4,14 +4,18 @@ import { searchFoods, lookupBarcode, nutritionForGrams } from "../api/openFoodFa
 // Lazy-load the scanner so the heavy ZXing barcode library only downloads
 // when the user actually opens the camera.
 const BarcodeScanner = lazy(() => import("./BarcodeScanner"));
+const PhotoFoodEntry = lazy(() => import("./PhotoFoodEntry"));
+const DescribeMealEntry = lazy(() => import("./DescribeMealEntry"));
 
 // Modal for finding a food (search or barcode) and adding it to a meal.
-export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) {
+export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onAddMany, onClose }) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scanning, setScanning] = useState(false);
+  const [photoMode, setPhotoMode] = useState(false);
+  const [describeMode, setDescribeMode] = useState(false);
   const [selected, setSelected] = useState(null); // food pending quantity
   const [grams, setGrams] = useState(100);
 
@@ -19,7 +23,7 @@ export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) 
 
   // Debounced search-as-you-type.
   useEffect(() => {
-    if (selected || scanning) return;
+    if (selected || scanning || photoMode || describeMode) return;
     if (query.trim().length < 2) {
       setResults([]);
       setError(null);
@@ -42,7 +46,7 @@ export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) 
       }
     }, 350);
     return () => clearTimeout(handle);
-  }, [query, selected, scanning]);
+  }, [query, selected, scanning, photoMode, describeMode]);
 
   async function handleBarcode(code) {
     setScanning(false);
@@ -67,6 +71,16 @@ export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) 
     setGrams(food.servingSize || 100);
   }
 
+  // After the user confirms what the photo shows, hand the name back to the
+  // normal search flow (the debounced effect picks up the new query).
+  function handlePhotoConfirm(name) {
+    setPhotoMode(false);
+    setSelected(null);
+    setResults([]);
+    setError(null);
+    setQuery(name);
+  }
+
   function confirmAdd() {
     if (!selected) return;
     const g = Number(grams) || 0;
@@ -87,7 +101,23 @@ export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) 
           <button className="icon-btn" onClick={onClose} aria-label="Close">✕</button>
         </div>
 
-        {scanning ? (
+        {describeMode ? (
+          <Suspense fallback={<p className="muted">Loading…</p>}>
+            <DescribeMealEntry
+              onAddMany={(entries) => {
+                onAddMany(entries);
+              }}
+              onClose={() => setDescribeMode(false)}
+            />
+          </Suspense>
+        ) : photoMode ? (
+          <Suspense fallback={<p className="muted">Loading…</p>}>
+            <PhotoFoodEntry
+              onConfirm={handlePhotoConfirm}
+              onClose={() => setPhotoMode(false)}
+            />
+          </Suspense>
+        ) : scanning ? (
           <Suspense fallback={<p className="muted">Loading camera…</p>}>
             <BarcodeScanner onDetected={handleBarcode} onClose={() => setScanning(false)} />
           </Suspense>
@@ -140,6 +170,12 @@ export default function AddFoodModal({ mealLabel, usualFoods, onAdd, onClose }) 
               />
               <button className="btn btn-scan" onClick={() => setScanning(true)} title="Scan barcode">
                 📷 Scan
+              </button>
+              <button className="btn btn-scan" onClick={() => setPhotoMode(true)} title="Add from a photo">
+                🖼️ Photo
+              </button>
+              <button className="btn btn-scan" onClick={() => setDescribeMode(true)} title="Describe a meal in words">
+                ✍️ Describe
               </button>
             </div>
 
