@@ -1,0 +1,630 @@
+:root {
+  --bg: #0f1115;
+  --card: #1a1d24;
+  --card-2: #22262f;
+  --border: #2b303b;
+  --text: #e8eaed;
+  --muted: #9aa2ad;
+  --primary: #22c55e;
+  --primary-dark: #16a34a;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand h1 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+.logo {
+  font-size: 1.5rem;
+}
+
+/* Date nav */
+.date-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+.date-label {
+  font-weight: 600;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* Buttons */
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 9px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-primary {
+  background: var(--primary);
+  color: #07110a;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+.btn-ghost {
+  background: var(--card-2);
+  color: var(--text);
+}
+.btn-ghost:hover {
+  background: var(--border);
+}
+.btn-add {
+  background: var(--card-2);
+  color: var(--primary);
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+.btn-scan {
+  background: #2b303b;
+  color: var(--text);
+  white-space: nowrap;
+}
+.btn.full {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+}
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+.icon-btn:hover {
+  background: var(--card-2);
+  color: var(--text);
+}
+.icon-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.icon-btn.danger:hover {
+  color: var(--danger);
+}
+
+/* Summary card */
+.summary-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.cal-ring-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.cal-num {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+.cal-goal {
+  color: var(--muted);
+  margin-left: 6px;
+}
+.cal-remaining {
+  color: var(--primary);
+  font-weight: 600;
+}
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+}
+.bar-values {
+  color: var(--muted);
+}
+.bar-track {
+  height: 8px;
+  background: var(--card-2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s;
+}
+
+/* Meals */
+.meals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.meal {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+.meal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.meal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+.meal-cal {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.meal-empty {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin: 10px 0 2px;
+}
+.entry-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--card-2);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.entry-name {
+  font-size: 0.9rem;
+}
+.entry-sub {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+.entry-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 50;
+  padding: 0;
+}
+.modal {
+  background: var(--card);
+  width: 100%;
+  max-width: 560px;
+  border-radius: 18px 18px 0 0;
+  padding: 18px;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+@media (min-width: 600px) {
+  .modal-backdrop {
+    align-items: center;
+    padding: 16px;
+  }
+  .modal {
+    border-radius: 18px;
+  }
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.modal-head h2 {
+  margin: 0;
+  font-size: 1.15rem;
+}
+
+/* Search */
+.search-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.search-input,
+.qty-input,
+.goal-input-wrap input {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+  width: 100%;
+}
+.search-input:focus,
+.qty-input:focus,
+.goal-input-wrap input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+.results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.result-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--card-2);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+}
+.result-item:hover {
+  background: var(--border);
+}
+.food-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--bg);
+  flex-shrink: 0;
+}
+.food-thumb.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.food-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.food-sub {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+/* Usual foods */
+.usual-section {
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.usual-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.usual-chip {
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.usual-chip:hover {
+  border-color: var(--primary);
+}
+
+/* Quantity view */
+.back-btn {
+  margin-bottom: 12px;
+  padding: 6px 10px;
+}
+.selected-food {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.qty-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.qty-input {
+  margin-top: 6px;
+}
+.preview-macros {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.macro {
+  background: var(--card-2);
+  border-radius: 10px;
+  padding: 10px 6px;
+  text-align: center;
+}
+.macro-strong {
+  background: #17301e;
+}
+.macro-value {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.macro-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  margin-top: 2px;
+}
+
+/* Goals */
+.goals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.goal-field span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.goal-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.goal-input-wrap .unit {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Scanner */
+.scanner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.scanner-video-wrap {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+}
+.scanner-video {
+  width: 100%;
+  display: block;
+  max-height: 60vh;
+}
+.scanner-reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 30%;
+  border: 3px solid var(--primary);
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.35);
+}
+.scanner-hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.scanner-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Misc */
+.muted {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+}
+.app-footer {
+  margin-top: 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.app-footer a {
+  color: var(--muted);
+}
+
+
+/* Weekly chart */
+.week-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.week-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.week-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.week-avg {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
+.metric-toggle {
+  display: flex;
+  gap: 6px;
+}
+.metric-btn {
+  flex: 1;
+  background: var(--card-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 8px;
+  padding: 6px 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.metric-btn:hover {
+  color: var(--text);
+}
+.metric-btn.active {
+  border-color: transparent;
+}
+
+.week-chart {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  height: 150px;
+  padding-top: 14px;
+}
+/* Overlay that matches the bar-track area exactly, so the goal line's
+   bottom% lines up with the bars (which scale within the same region). */
+.week-plot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14px; /* matches padding-top */
+  bottom: calc(0.72rem + 6px + 6px); /* day-label height + its margin-top */
+  pointer-events: none;
+}
+.week-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.week-bar-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.week-bar {
+  width: 68%;
+  max-width: 34px;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  min-height: 3px;
+  transition: height 0.3s;
+}
+.week-bar-value {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.week-day {
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.week-day.is-today {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* Goal reference line overlaid on the chart plot area.
+   Positioned relative to .week-plot, which spans the same region
+   the bars scale within, so bottom% aligns with bar heights. */
+.goal-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px dashed var(--muted);
+  opacity: 0.6;
+}
+.goal-line-label {
+  position: absolute;
+  right: 0;
+  top: -14px;
+  font-size: 0.62rem;
+  color: var(--muted);
+  background: var(--card);
+  padding: 0 4px;
+}
